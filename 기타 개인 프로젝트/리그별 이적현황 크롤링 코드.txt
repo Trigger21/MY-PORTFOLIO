@@ -1,0 +1,433 @@
+https://www.transfermarkt.de/
+https://www.transfermarkt.co.uk/
+
+tsm <- read_html("https://www.transfermarkt.co.uk/",encoding='euc-uk')
+
+tsm
+
+
+#main .navihalter .page_wrapper .megamenu_container.megamenu_dark_bar.megamenu_dark ul#hauptmenuepunkte li .dropdown_fullwidth ul li a
+url <- html_nodes(tsm,"#main")%>% 
+  html_nodes('.navihalter')%>%
+  html_nodes('.page_wrapper')%>%
+  html_nodes('.megamenu_container.megamenu_dark_bar.megamenu_dark')%>%
+  html_nodes('#hauptmenuepunkte')%>%
+  html_nodes('li')%>%
+  html_nodes('.dropdown_fullwidth')%>%
+  html_nodes('ul')%>%
+  html_nodes('li')%>%
+  html_nodes('a')%>%
+  html_attr('href')
+
+
+url <- html_nodes(tsm,"a")%>% 
+   html_attr('href')
+
+url
+
+sea <- "https://www.transfermarkt.co.uk/serie-a/transfers/wettbewerb/IT1"
+bun <- "https://www.transfermarkt.co.uk/1-bundesliga/transfers/wettbewerb/L1"
+la <- "https://www.transfermarkt.co.uk/primera-division/transfers/wettbewerb/ES1"
+epl <- "https://www.transfermarkt.co.uk/premier-league/transfers/wettbewerb/GB1"
+total <- c(epl,la,bun,sea)
+
+total
+
+epl <- read_html("https://www.transfermarkt.co.uk/premier-league/transfers/wettbewerb/GB1",encoding='euc-uk')
+la <- read_html("https://www.transfermarkt.co.uk/primera-division/transfers/wettbewerb/ES1",encoding='euc-uk')
+bun <- read_html("https://www.transfermarkt.co.uk/1-bundesliga/transfers/wettbewerb/L1",encoding='euc-uk')
+sea <- read_html("https://www.transfermarkt.co.uk/serie-a/transfers/wettbewerb/IT1",encoding='euc-uk')
+
+total <- read_html("https://www.transfermarkt.co.uk/premier-league/transfers/wettbewerb/GB1",
+                   "https://www.transfermarkt.co.uk/primera-division/transfers/wettbewerb/ES1",
+                   "https://www.transfermarkt.co.uk/1-bundesliga/transfers/wettbewerb/L1",
+                   "https://www.transfermarkt.co.uk/serie-a/transfers/wettbewerb/IT1",encoding='euc-uk')
+
+total
+$node
+<pointer: 0x00000000175ece30>
+  
+  $doc
+<pointer: 0x0000000016d4de40>
+  
+  $node
+<pointer: 0x00000000548691a0>
+  
+  $doc
+<pointer: 0x0000000016d4dfc0>
+  
+  $node
+<pointer: 0x000000004ff61130>
+  
+  $doc
+<pointer: 0x0000000016d4e2c0>
+  
+  $node
+<pointer: 0x00000000509e8720>
+  
+  $doc
+<pointer: 0x0000000016d4e440>
+  
+
+
+epl <- read_html("https://www.transfermarkt.co.uk/premier-league/transfers/wettbewerb/GB1",encoding='euc-uk')
+
+eplt <- html_nodes(epl,".responsive-table")%>%
+  html_text()
+
+eplt[1]
+[1] "\r\n\t\t\t\t\tArrivals\r\n\t\t\t\t\t\t\t\tAge\r\n\t\t\t\t\t\t\t\tNat.\r\n\t\t\t\t\t\t\t\tPosition\r\n\t\t\t\t\t\t\t\tPos\r\n\t\t\t\t\t\t\t\tMarket value\r\n\t\t\t\t\t\t\t\tMoving from\r\n\t\t\t\t\t\t\t\tTransfer fee\r\n\t\t\t\t\t\t\tAlvaro MorataA. Morata\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Forward\r\n\t\t\t\t\t\t\t\t\t\tCF\r\n\t\t\t\t\t\t\t\t\t\t￡36.00m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Real Madrid\r\n\t\t\t\t\t\t\t\t\t\t￡55.80m\r\n\t\t\t\t\t\t\t\t\tTiemoue BakayokoT. Bakayoko\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tDefensive Midfield\r\n\t\t\t\t\t\t\t\t\t\tDM\r\n\t\t\t\t\t\t\t\t\t\t￡14.40m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Monaco\r\n\t\t\t\t\t\t\t\t\t\t￡36.00m\r\n\t\t\t\t\t\t\t\t\tDanny DrinkwaterD. Drinkwater\r\n\t\t\t\t\t\t\t\t\t\t27\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentral Midfield\r\n\t\t\t\t\t\t\t\t\t\tCM\r\n\t\t\t\t\t\t\t\t\t\t￡8.10m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Leicester\r\n\t\t\t\t\t\t\t\t\t\t￡34.11m\r\n\t\t\t\t\t\t\t\t\tAntonio RudigerA. Rudiger\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡22.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   AS Roma\r\n\t\t\t\t\t\t\t\t\t\t￡31.50m\r\n\t\t\t\t\t\t\t\t\tDavide ZappacostaD. Zappacosta\r\n\t\t\t\t\t\t\t\t\t\t25\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tRight-Back\r\n\t\t\t\t\t\t\t\t\t\tRB\r\n\t\t\t\t\t\t\t\t\t\t￡7.65m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Torino\r\n\t\t\t\t\t\t\t\t\t\t￡22.50m\r\n\t\t\t\t\t\t\t\t\tRoss BarkleyR. Barkley\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tAttacking Midfield\r\n\t\t\t\t\t\t\t\t\t\tAM\r\n\t\t\t\t\t\t\t\t\t\t￡22.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Everton\r\n\t\t\t\t\t\t\t\t\t\t￡15.21m\r\n\t\t\t\t\t\t\t\t\tWilly CaballeroW. Caballero\r\n\t\t\t\t\t\t\t\t\t\t35\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tKeeper\r\n\t\t\t\t\t\t\t\t\t\tGK\r\n\t\t\t\t\t\t\t\t\t\t￡1.35m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Man City\r\n\t\t\t\t\t\t\t\t\t\tFree transfer\r\n\t\t\t\t\t\t\t\t\tTammy AbrahamT. Abraham\r\n\t\t\t\t\t\t\t\t\t\t19\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Forward\r\n\t\t\t\t\t\t\t\t\t\tCF\r\n\t\t\t\t\t\t\t\t\t\t￡7.20m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Chelsea U23\r\n\t\t\t\t\t\t\t\t\t\t-\r\n\t\t\t\t\t\t\t\t\tOla AinaOla Aina\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tRight-Back\r\n\t\t\t\t\t\t\t\t\t\tRB\r\n\t\t\t\t\t\t\t\t\t\t￡1.35m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Hull City\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tTomas KalasT. Kalas\r\n\t\t\t\t\t\t\t\t\t\t25\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡4.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Fulham\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tLewis BakerL. Baker\r\n\t\t\t\t\t\t\t\t\t\t23\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentral Midfield\r\n\t\t\t\t\t\t\t\t\t\tCM\r\n\t\t\t\t\t\t\t\t\t\t￡4.95m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Middlesbrough\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tCharly Musonda Jr.C. Musonda Jr.\r\n\t\t\t\t\t\t\t\t\t\t20\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tAttacking Midfield\r\n\t\t\t\t\t\t\t\t\t\tAM\r\n\t\t\t\t\t\t\t\t\t\t￡4.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Chelsea U23\r\n\t\t\t\t\t\t\t\t\t\t-\r\n\t\t\t\t\t\t\t\t\tTammy AbrahamT. Abraham\r\n\t\t\t\t\t\t\t\t\t\t20\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Forward\r\n\t\t\t\t\t\t\t\t\t\tCF\r\n\t\t\t\t\t\t\t\t\t\t￡9.00m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Swansea\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tJeremie BogaJ. Boga\r\n\t\t\t\t\t\t\t\t\t\t20\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tAttacking Midfield\r\n\t\t\t\t\t\t\t\t\t\tAM\r\n\t\t\t\t\t\t\t\t\t\t￡2.25m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Chelsea U23\r\n\t\t\t\t\t\t\t\t\t\t-\r\n\t\t\t\t\t\t\t\t\tKurt ZoumaK. Zouma\r\n\t\t\t\t\t\t\t\t\t\t23\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡13.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Stoke City\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tNathanNathan\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft Wing\r\n\t\t\t\t\t\t\t\t\t\tLW\r\n\t\t\t\t\t\t\t\t\t\t￡1.13m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   SC Amiens\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanDec 31, 2017\r\n\t\t\t\t\t\t\t\t\tJamal BlackmanJ. Blackman\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tKeeper\r\n\t\t\t\t\t\t\t\t\t\tGK\r\n\t\t\t\t\t\t\t\t\t\t￡225k\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Sheffield Utd.\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tKenedyKenedy\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft-Back\r\n\t\t\t\t\t\t\t\t\t\tLB\r\n\t\t\t\t\t\t\t\t\t\t￡6.30m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Newcastle\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tLucas PiazonL. Piazon\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft Wing\r\n\t\t\t\t\t\t\t\t\t\tLW\r\n\t\t\t\t\t\t\t\t\t\t￡2.25m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Fulham\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tRuben Loftus-CheekR. Loftus-Cheek\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentral Midfield\r\n\t\t\t\t\t\t\t\t\t\tCM\r\n\t\t\t\t\t\t\t\t\t\t￡7.20m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Crystal Palace\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tMichael HectorM. Hector\r\n\t\t\t\t\t\t\t\t\t\t25\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡2.70m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Hull City\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tJeremie BogaJ. Boga\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tAttacking Midfield\r\n\t\t\t\t\t\t\t\t\t\tAM\r\n\t\t\t\t\t\t\t\t\t\t￡2.25m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Birmingham\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanMay 31, 2018\r\n\t\t\t\t\t\t\t\t\tChristian AtsuC. Atsu\r\n\t\t\t\t\t\t\t\t\t\t25\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft Wing\r\n\t\t\t\t\t\t\t\t\t\tLW\r\n\t\t\t\t\t\t\t\t\t\t￡4.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Newcastle\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tLewis BakerL. Baker\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentral Midfield\r\n\t\t\t\t\t\t\t\t\t\tCM\r\n\t\t\t\t\t\t\t\t\t\t￡4.95m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Vitesse\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tNathanNathan\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft Wing\r\n\t\t\t\t\t\t\t\t\t\tLW\r\n\t\t\t\t\t\t\t\t\t\t￡1.13m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Vitesse\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tBertrand TraoreB. Traore\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tRight Wing\r\n\t\t\t\t\t\t\t\t\t\tRW\r\n\t\t\t\t\t\t\t\t\t\t￡7.20m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   AFC Ajax\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tMario PasalicM. Pasalic\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentral Midfield\r\n\t\t\t\t\t\t\t\t\t\tCM\r\n\t\t\t\t\t\t\t\t\t\t￡7.20m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   AC Milan\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tJuan CuadradoJ. Cuadrado\r\n\t\t\t\t\t\t\t\t\t\t29\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tRight Wing\r\n\t\t\t\t\t\t\t\t\t\tRW\r\n\t\t\t\t\t\t\t\t\t\t￡22.50m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Juventus\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tWallace OliveiraWallace Oliveira\r\n\t\t\t\t\t\t\t\t\t\t23\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tRight-Back\r\n\t\t\t\t\t\t\t\t\t\tRB\r\n\t\t\t\t\t\t\t\t\t\t￡900k\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Gremio\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tAbdul Rahman BabaA. Baba\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft-Back\r\n\t\t\t\t\t\t\t\t\t\tLB\r\n\t\t\t\t\t\t\t\t\t\t￡7.20m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   FC Schalke 04\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tMichael HectorM. Hector\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡2.70m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   E. Frankfurt\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tCristian CuevasC. Cuevas\r\n\t\t\t\t\t\t\t\t\t\t22\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft-Back\r\n\t\t\t\t\t\t\t\t\t\tLB\r\n\t\t\t\t\t\t\t\t\t\t￡810k\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Sint-Truiden\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tMatt MiazgaM. Miazga\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡1.80m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Vitesse\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tAndreas ChristensenA. Christensen\r\n\t\t\t\t\t\t\t\t\t\t21\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡16.20m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Bor. M'gladbach\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tMatej DelacM. Delac\r\n\t\t\t\t\t\t\t\t\t\t24\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tKeeper\r\n\t\t\t\t\t\t\t\t\t\tGK\r\n\t\t\t\t\t\t\t\t\t\t￡810k\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Mouscron\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tDanilo PanticD. Pantic\r\n\t\t\t\t\t\t\t\t\t\t20\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tLeft Wing\r\n\t\t\t\t\t\t\t\t\t\tLW\r\n\t\t\t\t\t\t\t\t\t\t￡360k\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   SBV Excelsior\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\tKenneth OmeruoK. Omeruo\r\n\t\t\t\t\t\t\t\t\t\t23\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tCentre-Back\r\n\t\t\t\t\t\t\t\t\t\tCB\r\n\t\t\t\t\t\t\t\t\t\t￡1.80m\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t   Alanyaspor\r\n\t\t\t\t\t\t\t\t\t\tEnd of loanJun 30, 2017\r\n\t\t\t\t\t\t\t\t\t"
+
+t2 <- str_replace_all(eplt, '\\s{2,}', '/')
+
+t2[1]
+[1] "/Arrivals/Age/Nat./Position/Pos/Market value/Moving from/Transfer fee/Alvaro MorataA. Morata/24/Centre-Forward/CF/￡36.00m/Real Madrid/￡55.80m/Tiemoue BakayokoT. Bakayoko/22/Defensive Midfield/DM/￡14.40m/Monaco/￡36.00m/Danny DrinkwaterD. Drinkwater/27/Central Midfield/CM/￡8.10m/Leicester/￡34.11m/Antonio RudigerA. Rudiger/24/Centre-Back/CB/￡22.50m/AS Roma/￡31.50m/Davide ZappacostaD. Zappacosta/25/Right-Back/RB/￡7.65m/Torino/￡22.50m/Ross BarkleyR. Barkley/24/Attacking Midfield/AM/￡22.50m/Everton/￡15.21m/Willy CaballeroW. Caballero/35/Keeper/GK/￡1.35m/Man City/Free transfer/Tammy AbrahamT. Abraham/19/Centre-Forward/CF/￡7.20m/Chelsea U23/-/Ola AinaOla Aina/21/Right-Back/RB/￡1.35m/Hull City/End of loanMay 31, 2018/Tomas KalasT. Kalas/25/Centre-Back/CB/￡4.50m/Fulham/End of loanMay 31, 2018/Lewis BakerL. Baker/23/Central Midfield/CM/￡4.95m/Middlesbrough/End of loanMay 31, 2018/Charly Musonda Jr.C. Musonda Jr./20/Attacking Midfield/AM/￡4.50m/Chelsea U23/-/Tammy AbrahamT. Abraham/20/Centre-Forward/CF/￡9.00m/Swansea/End of loanMay 31, 2018/Jeremie BogaJ. Boga/20/Attacking Midfield/AM/￡2.25m/Chelsea U23/-/Kurt ZoumaK. Zouma/23/Centre-Back/CB/￡13.50m/Stoke City/End of loanMay 31, 2018/NathanNathan/21/Left Wing/LW/￡1.13m/SC Amiens/End of loanDec 31, 2017/Jamal BlackmanJ. Blackman/24/Keeper/GK/￡225k/Sheffield Utd./End of loanMay 31, 2018/KenedyKenedy/22/Left-Back/LB/￡6.30m/Newcastle/End of loanMay 31, 2018/Lucas PiazonL. Piazon/24/Left Wing/LW/￡2.25m/Fulham/End of loanMay 31, 2018/Ruben Loftus-CheekR. Loftus-Cheek/22/Central Midfield/CM/￡7.20m/Crystal Palace/End of loanMay 31, 2018/Michael HectorM. Hector/25/Centre-Back/CB/￡2.70m/Hull City/End of loanMay 31, 2018/Jeremie BogaJ. Boga/21/Attacking Midfield/AM/￡2.25m/Birmingham/End of loanMay 31, 2018/Christian AtsuC. Atsu/25/Left Wing/LW/￡4.50m/Newcastle/End of loanJun 30, 2017/Lewis BakerL. Baker/22/Central Midfield/CM/￡4.95m/Vitesse/End of loanJun 30, 2017/NathanNathan/21/Left Wing/LW/￡1.13m/Vitesse/End of loanJun 30, 2017/Bertrand TraoreB. Traore/21/Right Wing/RW/￡7.20m/AFC Ajax/End of loanJun 30, 2017/Mario PasalicM. Pasalic/22/Central Midfield/CM/￡7.20m/AC Milan/End of loanJun 30, 2017/Juan CuadradoJ. Cuadrado/29/Right Wing/RW/￡22.50m/Juventus/End of loanJun 30, 2017/Wallace OliveiraWallace Oliveira/23/Right-Back/RB/￡900k/Gremio/End of loanJun 30, 2017/Abdul Rahman BabaA. Baba/22/Left-Back/LB/￡7.20m/FC Schalke 04/End of loanJun 30, 2017/Michael HectorM. Hector/24/Centre-Back/CB/￡2.70m/E. Frankfurt/End of loanJun 30, 2017/Cristian CuevasC. Cuevas/22/Left-Back/LB/￡810k/Sint-Truiden/End of loanJun 30, 2017/Matt MiazgaM. Miazga/21/Centre-Back/CB/￡1.80m/Vitesse/End of loanJun 30, 2017/Andreas ChristensenA. Christensen/21/Centre-Back/CB/￡16.20m/Bor. M'gladbach/End of loanJun 30, 2017/Matej DelacM. Delac/24/Keeper/GK/￡810k/Mouscron/End of loanJun 30, 2017/Danilo PanticD. Pantic/20/Left Wing/LW/￡360k/SBV Excelsior/End of loanJun 30, 2017/Kenneth OmeruoK. Omeruo/23/Centre-Back/CB/￡1.80m/Alanyaspor/End of loanJun 30, 2017/"
+
+
+t3 <- strsplit(t2,split="/")
+
+t3[1]
+[[1]]
+[1] ""                                  "Arrivals"                          "Age"                              
+[4] "Nat."                              "Position"                          "Pos"                              
+[7] "Market value"                      "Moving from"                       "Transfer fee"                     
+[10] "Alvaro MorataA. Morata"            "24"                                "Centre-Forward"                   
+[13] "CF"                                "￡36.00m"                           "Real Madrid"                      
+[16] "￡55.80m"                           "Tiemoue BakayokoT. Bakayoko"       "22"                               
+[19] "Defensive Midfield"                "DM"                                "￡14.40m"                          
+[22] "Monaco"                            "￡36.00m"                           "Danny DrinkwaterD. Drinkwater"    
+[25] "27"                                "Central Midfield"                  "CM"                               
+[28] "￡8.10m"                            "Leicester"                         "￡34.11m"                          
+[31] "Antonio RudigerA. Rudiger"         "24"                                "Centre-Back"                      
+[34] "CB"                                "￡22.50m"                           "AS Roma"                          
+[37] "￡31.50m"                           "Davide ZappacostaD. Zappacosta"    "25"                               
+[40] "Right-Back"                        "RB"                                "￡7.65m"                           
+[43] "Torino"                            "￡22.50m"                           "Ross BarkleyR. Barkley"           
+[46] "24"                                "Attacking Midfield"                "AM"                               
+[49] "￡22.50m"                           "Everton"                           "￡15.21m"                          
+[52] "Willy CaballeroW. Caballero"       "35"                                "Keeper"                           
+[55] "GK"                                "￡1.35m"                            "Man City"                         
+[58] "Free transfer"                     "Tammy AbrahamT. Abraham"           "19"                               
+[61] "Centre-Forward"                    "CF"                                "￡7.20m"                           
+[64] "Chelsea U23"                       "-"                                 "Ola AinaOla Aina"                 
+[67] "21"                                "Right-Back"                        "RB"                               
+[70] "￡1.35m"                            "Hull City"                         "End of loanMay 31, 2018"          
+[73] "Tomas KalasT. Kalas"               "25"                                "Centre-Back"                      
+[76] "CB"                                "￡4.50m"                            "Fulham"                           
+[79] "End of loanMay 31, 2018"           "Lewis BakerL. Baker"               "23"                               
+[82] "Central Midfield"                  "CM"                                "￡4.95m"                           
+[85] "Middlesbrough"                     "End of loanMay 31, 2018"           "Charly Musonda Jr.C. Musonda Jr." 
+[88] "20"                                "Attacking Midfield"                "AM"                               
+[91] "￡4.50m"                            "Chelsea U23"                       "-"                                
+[94] "Tammy AbrahamT. Abraham"           "20"                                "Centre-Forward"                   
+[97] "CF"                                "￡9.00m"                            "Swansea"                          
+[100] "End of loanMay 31, 2018"           "Jeremie BogaJ. Boga"               "20"                               
+[103] "Attacking Midfield"                "AM"                                "￡2.25m"                           
+[106] "Chelsea U23"                       "-"                                 "Kurt ZoumaK. Zouma"               
+[109] "23"                                "Centre-Back"                       "CB"                               
+[112] "￡13.50m"                           "Stoke City"                        "End of loanMay 31, 2018"          
+[115] "NathanNathan"                      "21"                                "Left Wing"                        
+[118] "LW"                                "￡1.13m"                            "SC Amiens"                        
+[121] "End of loanDec 31, 2017"           "Jamal BlackmanJ. Blackman"         "24"                               
+[124] "Keeper"                            "GK"                                "￡225k"                            
+[127] "Sheffield Utd."                    "End of loanMay 31, 2018"           "KenedyKenedy"                     
+[130] "22"                                "Left-Back"                         "LB"                               
+[133] "￡6.30m"                            "Newcastle"                         "End of loanMay 31, 2018"          
+[136] "Lucas PiazonL. Piazon"             "24"                                "Left Wing"                        
+[139] "LW"                                "￡2.25m"                            "Fulham"                           
+[142] "End of loanMay 31, 2018"           "Ruben Loftus-CheekR. Loftus-Cheek" "22"                               
+[145] "Central Midfield"                  "CM"                                "￡7.20m"                           
+[148] "Crystal Palace"                    "End of loanMay 31, 2018"           "Michael HectorM. Hector"          
+[151] "25"                                "Centre-Back"                       "CB"                               
+[154] "￡2.70m"                            "Hull City"                         "End of loanMay 31, 2018"          
+[157] "Jeremie BogaJ. Boga"               "21"                                "Attacking Midfield"               
+[160] "AM"                                "￡2.25m"                            "Birmingham"                       
+[163] "End of loanMay 31, 2018"           "Christian AtsuC. Atsu"             "25"                               
+[166] "Left Wing"                         "LW"                                "￡4.50m"                           
+[169] "Newcastle"                         "End of loanJun 30, 2017"           "Lewis BakerL. Baker"              
+[172] "22"                                "Central Midfield"                  "CM"                               
+[175] "￡4.95m"                            "Vitesse"                           "End of loanJun 30, 2017"          
+[178] "NathanNathan"                      "21"                                "Left Wing"                        
+[181] "LW"                                "￡1.13m"                            "Vitesse"                          
+[184] "End of loanJun 30, 2017"           "Bertrand TraoreB. Traore"          "21"                               
+[187] "Right Wing"                        "RW"                                "￡7.20m"                           
+[190] "AFC Ajax"                          "End of loanJun 30, 2017"           "Mario PasalicM. Pasalic"          
+[193] "22"                                "Central Midfield"                  "CM"                               
+[196] "￡7.20m"                            "AC Milan"                          "End of loanJun 30, 2017"          
+[199] "Juan CuadradoJ. Cuadrado"          "29"                                "Right Wing"                       
+[202] "RW"                                "￡22.50m"                           "Juventus"                         
+[205] "End of loanJun 30, 2017"           "Wallace OliveiraWallace Oliveira"  "23"                               
+[208] "Right-Back"                        "RB"                                "￡900k"                            
+[211] "Gremio"                            "End of loanJun 30, 2017"           "Abdul Rahman BabaA. Baba"         
+[214] "22"                                "Left-Back"                         "LB"                               
+[217] "￡7.20m"                            "FC Schalke 04"                     "End of loanJun 30, 2017"          
+[220] "Michael HectorM. Hector"           "24"                                "Centre-Back"                      
+[223] "CB"                                "￡2.70m"                            "E. Frankfurt"                     
+[226] "End of loanJun 30, 2017"           "Cristian CuevasC. Cuevas"          "22"                               
+[229] "Left-Back"                         "LB"                                "￡810k"                            
+[232] "Sint-Truiden"                      "End of loanJun 30, 2017"           "Matt MiazgaM. Miazga"             
+[235] "21"                                "Centre-Back"                       "CB"                               
+[238] "￡1.80m"                            "Vitesse"                           "End of loanJun 30, 2017"          
+[241] "Andreas ChristensenA. Christensen" "21"                                "Centre-Back"                      
+[244] "CB"                                "￡16.20m"                           "Bor. M'gladbach"                  
+[247] "End of loanJun 30, 2017"           "Matej DelacM. Delac"               "24"                               
+[250] "Keeper"                            "GK"                                "￡810k"                            
+[253] "Mouscron"                          "End of loanJun 30, 2017"           "Danilo PanticD. Pantic"           
+[256] "20"                                "Left Wing"                         "LW"                               
+[259] "￡360k"                             "SBV Excelsior"                     "End of loanJun 30, 2017"          
+[262] "Kenneth OmeruoK. Omeruo"           "23"                                "Centre-Back"                      
+[265] "CB"                                "￡1.80m"                            "Alanyaspor"                       
+[268] "End of loanJun 30, 2017"
+
+t4<-unlist(t3)
+
+t5 <- table(t4)
+
+wordcloud2(t5)
+
+position <- readLines("c:/r/position.txt")
+
+epl_df<- data.frame(position=position,cnt = length(position),stringsAsFactors = F)
+
+for(i in position){
+  epl_df$cnt[epl_df$position==i]<- length(t4[grep(i,t4,ignore.case = TRUE)])
+}
+
+epl_df
+position cnt
+1      Centre-Forward 100
+2           Left Wing  50
+3          Right Wing  41
+4  Attacking Midfield  35
+5    Central Midfield  72
+6  Defensive Midfield  37
+7       Left Midfield   4
+8      Right Midfield   6
+9           Left-Back  38
+10         Right-Back  60
+11        Centre-Back  98
+12             Keeper  74
+
+
+arrange(epl_df,desc(epl_df$cnt))
+position cnt
+1      Centre-Forward 100
+2         Centre-Back  98
+3              Keeper  74
+4    Central Midfield  72
+5          Right-Back  60
+6           Left Wing  50
+7          Right Wing  41
+8           Left-Back  38
+9  Defensive Midfield  37
+10 Attacking Midfield  35
+11     Right Midfield   6
+12      Left Midfield   4
+
+wordcloud2(epl_df)
+
+la <- read_html("https://www.transfermarkt.co.uk/primera-division/transfers/wettbewerb/ES1",encoding='euc-uk')
+
+lat <- html_nodes(la,".responsive-table")%>%
+  html_text()
+
+t2 <- str_replace_all(lat, '\\s{2,}', '/')
+t3 <- strsplit(t2,split="/")
+t4<-unlist(t3)
+la_df<- data.frame(position=position,cnt = length(position),stringsAsFactors = F)
+for(i in position){
+  la_df$cnt[la_df$position==i]<- length(t4[grep(i,t4,ignore.case = TRUE)])
+}
+
+la_df
+position cnt
+1      Centre-Forward 114
+2           Left Wing  78
+3          Right Wing  67
+4  Attacking Midfield  34
+5    Central Midfield  76
+6  Defensive Midfield  41
+7       Left Midfield   1
+8      Right Midfield   0
+9           Left-Back  53
+10         Right-Back  42
+11        Centre-Back  98
+12             Keeper  66
+
+bun <- read_html("https://www.transfermarkt.co.uk/1-bundesliga/transfers/wettbewerb/L1",encoding='euc-uk')
+
+bunt <- html_nodes(bun,".responsive-table")%>%
+  html_text()
+
+t2 <- str_replace_all(bunt, '\\s{2,}', '/')
+t3 <- strsplit(t2,split="/")
+t4<-unlist(t3)
+bun_df<- data.frame(position=position,cnt = length(position),stringsAsFactors = F)
+for(i in position){
+  bun_df$cnt[bun_df$position==i]<- length(t4[grep(i,t4,ignore.case = TRUE)])
+}
+
+bun_df
+position cnt
+1      Centre-Forward  92
+2           Left Wing  50
+3          Right Wing  24
+4  Attacking Midfield  37
+5    Central Midfield  44
+6  Defensive Midfield  30
+7       Left Midfield   8
+8      Right Midfield   3
+9           Left-Back  43
+10         Right-Back  42
+11        Centre-Back  87
+12             Keeper  36
+
+sea <- read_html("https://www.transfermarkt.co.uk/serie-a/transfers/wettbewerb/IT1",encoding='euc-uk')
+
+seat <- html_nodes(sea,".responsive-table")%>%
+  html_text()
+
+t2 <- str_replace_all(seat, '\\s{2,}', '/')
+t3 <- strsplit(t2,split="/")
+t4<-unlist(t3)
+sea_df<- data.frame(position=position,cnt = length(position),stringsAsFactors = F)
+for(i in position){
+  sea_df$cnt[sea_df$position==i]<- length(t4[grep(i,t4,ignore.case = TRUE)])
+}
+
+sea_df
+position cnt
+1      Centre-Forward 232
+2           Left Wing  85
+3          Right Wing 102
+4  Attacking Midfield  59
+5    Central Midfield 279
+6  Defensive Midfield 101
+7       Left Midfield  19
+8      Right Midfield  16
+9           Left-Back 136
+10         Right-Back 100
+11        Centre-Back 304
+12             Keeper 134
+
+# total
+
+df <- merge(epl_df,la_df,all=T)
+
+df <- merge(df,bun_df,all=T)
+
+tdf <- merge(df,sea_df,all=T)
+
+tdf
+
+position cnt
+1  Attacking Midfield  34
+2  Attacking Midfield  35
+3  Attacking Midfield  37
+4  Attacking Midfield  59
+5    Central Midfield  44
+6    Central Midfield  72
+7    Central Midfield  76
+8    Central Midfield 279
+9         Centre-Back  87
+10        Centre-Back  98
+11        Centre-Back 304
+12     Centre-Forward  92
+13     Centre-Forward 100
+14     Centre-Forward 114
+15     Centre-Forward 232
+16 Defensive Midfield  30
+17 Defensive Midfield  37
+18 Defensive Midfield  41
+19 Defensive Midfield 101
+20             Keeper  36
+21             Keeper  66
+22             Keeper  74
+23             Keeper 134
+24          Left-Back  38
+25          Left-Back  43
+26          Left-Back  53
+27          Left-Back 136
+28      Left Midfield   1
+29      Left Midfield   4
+30      Left Midfield   8
+31      Left Midfield  19
+32          Left Wing  50
+33          Left Wing  78
+34          Left Wing  85
+35         Right-Back  42
+36         Right-Back  60
+37         Right-Back 100
+38     Right Midfield   0
+39     Right Midfield   3
+40     Right Midfield   6
+41     Right Midfield  16
+42         Right Wing  24
+43         Right Wing  41
+44         Right Wing  67
+45         Right Wing 102
+
+total_df <- ddply(tdf,'position', summarise, sum(cnt))
+
+total_df
+
+position ..1
+1  Attacking Midfield 165
+2    Central Midfield 471
+3         Centre-Back 489
+4      Centre-Forward 538
+5  Defensive Midfield 209
+6              Keeper 310
+7           Left-Back 270
+8       Left Midfield  32
+9           Left Wing 213
+10         Right-Back 202
+11     Right Midfield  25
+12         Right Wing 234
+
+names(total_df) <- c('position','cnt')
+
+arrange(total_df,desc(total_df$cnt))
+position cnt
+1      Centre-Forward 538
+2         Centre-Back 489
+3    Central Midfield 471
+4              Keeper 310
+5           Left-Back 270
+6          Right Wing 234
+7           Left Wing 213
+8  Defensive Midfield 209
+9          Right-Back 202
+10 Attacking Midfield 165
+11      Left Midfield  32
+12     Right Midfield  25
+
+ggplot(epl_df,aes(x=position,y=cnt,fill=position))+
+  geom_bar(stat ="identity")+
+  ggtitle("17~18 시즌 ENG PREMIER LEAGUE 이적상황",subtitle="포지션 별")+
+  theme(plot.title = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))+
+  theme(plot.subtitle = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))
+
+ggplot(la_df,aes(x=position,y=cnt,fill=position))+
+  geom_bar(stat ="identity")+
+  ggtitle("17~18 시즌 primera La LiGa 이적상황",subtitle="포지션 별")+
+  theme(plot.title = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))+
+  theme(plot.subtitle = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))
+
+ggplot(bun_df,aes(x=position,y=cnt,fill=position))+
+  geom_bar(stat ="identity")+
+  ggtitle("17~18 시즌 1 division.BUNDESLIGA 이적상황",subtitle="포지션 별")+
+  theme(plot.title = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))+
+  theme(plot.subtitle = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))
+
+ggplot(sea_df,aes(x=position,y=cnt,fill=position))+
+  geom_bar(stat ="identity")+
+  ggtitle("17~18 시즌 SERIE A 이적상황",subtitle="포지션 별")+
+  theme(plot.title = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))+
+  theme(plot.subtitle = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))
+
+ggplot(total_df,aes(x=position,y=cnt,fill=position))+
+  geom_bar(stat ="identity")+
+  ggtitle("17~18 시즌 4대 메이져 리그 이적상황",subtitle="포지션 별")+
+  theme(plot.title = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))+
+  theme(plot.subtitle = element_text(lineheight=.8, face="bold",color="darkblue",hjust=0.5))

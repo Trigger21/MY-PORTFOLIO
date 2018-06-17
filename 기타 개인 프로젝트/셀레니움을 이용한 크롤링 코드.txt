@@ -1,0 +1,200 @@
+Sys.setlocale(category = "LC_CTYPE", locale = "ko_KR.UTF-8") #맥os사용자를 위한 한글 잘 사용하기 위한 명령어
+par(family = "AppleGothic")
+setwd("/Users/janghyeonan/r/")
+library(doBy)
+library(lubridate)
+library(sqldf)
+library(plyr)
+library(reshape2)
+library(stringr)
+library(plotrix)
+library(animation)
+library(ggplot2)
+Sys.setenv(JAVA_HOME = '/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home')
+dyn.load('/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/jre/lib/server/libjvm.dylib')
+jdbcDriver <- JDBC(driverClass="oracle.jdbc.OracleDriver", classPath="/Users/janghyeonan/R/ojdbc6.jar")
+conn <- dbConnect(jdbcDriver, "jdbc:oracle:thin:@renardy.iptime.org:1511/xe", "hr",  "hr") 
+library(rJava)
+library(RJDBC)
+library(KoNLP)
+library(ggplot2)
+library(wordcloud2)
+library(RColorBrewer) 
+library(rvest)
+library(dplyr)
+
+
+#셀레니움을 이용한 크롤링
+
+library(RSelenium)
+Sys.sleep(1)
+ch=wdman::chrome(port=4567L)
+Sys.sleep(1)
+remDr=remoteDriver(port=4567L, browserName='chrome') #remote설정
+Sys.sleep(1)
+
+web_crawling <-function(){
+  print("크롬 실행")
+  remDr$open() #크롬드라이버 실행
+
+  Sys.sleep(2)
+  print("forbes 사이트 접속 대기 3초")
+  remDr$navigate("https://www.forbes.com") #URL로 이동
+
+  Sys.sleep(3)
+
+  webElem0 <- remDr$findElement(using = "css selector", "div.continue-button")
+  print("컨티뉴 버튼 클릭으로 메인페이지로 이동")
+  webElem0$clickElement()
+
+
+  Sys.sleep(3)
+
+  #most popular 클릭
+  
+
+  webElem1 <- remDr$findElement(using = "xpath", "//*[@id='main-content']/div[2]/div[2]/div[1]/div/div[2]/div[2]/div[3]/div[3]/a" )
+
+  print("most popular 카테고리 클릭")
+
+  webElem1$sendKeysToElement(list(key = "enter"))
+
+
+  Sys.sleep(3)
+
+
+#제목만 따오기
+
+  source<-remDr$getPageSource()[[1]] #페이지 소스 가져오기
+
+  html <- read_html(source)
+  print("페이지 소스 가져오기")
+  html
+
+
+  Sys.sleep(3)
+
+  url <- html_nodes(html, css ="a.ng-scope > h2 > span")%>%
+      html_text()
+  print("가져오기 완료")
+  url2 <- html_nodes(html, css ="a.ng-scope")%>%
+  html_attr('href')
+
+
+  Sys.sleep(3)
+  print("제목")
+  print(url[1]) #제목
+
+  Sys.sleep(3)
+
+  print(url2[1]) #url
+
+  Sys.sleep(3)
+
+  print("url")
+
+  Sys.sleep(3)
+  print("글 개수")
+  print(length(url2)) #몇개이냐?
+
+  print("크롤링 완료")
+
+  Sys.sleep(5)
+  print("5초 기다려주세요.")
+  forbes_content_in()  
+}
+
+forbes_content_in <- function(){
+r <- NULL
+#1번째로 이동
+for(i in 1:5){
+  remDr$navigate(url2[i]) #URL로 이동
+  url[i] #제목
+  source<-remDr$getPageSource()[[1]] #페이지 소스 가져오기
+  html <- read_html(source)
+  abc <- html_nodes(html, css ="div > p")%>% 
+        html_text()
+  for(j in 1:length(abc)){
+      r[i] <- paste(r[i], abc[j], sep = "")
+      print(paste(i, '은', j, '줄 합쳐짐.', sep = ""))
+  }
+  Sys.sleep(2)
+  print(paste("== 총", length(url2), '개중 에서', i, "번째 진행 완료! ==", sep = ""))
+    Sys.sleep(2)
+}
+print("자료정리 끝")
+}
+
+r[4]
+#실행
+web_crawling()
+forbes_content_in()
+url2[2] 
+r[1]
+r[2]
+wcwc(r[1])
+
+remDr$close()
+
+###########################==========================#####################
+
+# Devtools 패키지를 설치합니다.
+library(devtools)
+# 패키지를 로드합니다.
+install_github("plgrmr/readAny", force = TRUE)
+library(readAny)
+library(wordcloud2)
+library(reshape2)
+
+r[1]
+class(r[])
+
+#워드 클라우드를 그리는 함수
+wcwc <- function(xx){
+  obama1 <- VCorpus(VectorSource(xx))
+  Sys.sleep(0.1)
+  obama2 <- TermDocumentMatrix(obama1)
+  Sys.sleep(0.1)
+  m1 <- as.matrix(obama2)
+  Sys.sleep(0.1)
+  rowSums(m1)
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama1, stripWhitespace)
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tolower)
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, removeNumbers)
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, removePunctuation)
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, PlainTextDocument)
+  Sys.sleep(0.1)
+  tostring <- content_transformer(function(x,from,to) gsub(from,to,x))
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tostring, "”", "")
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tostring, "“", "")
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tostring, "’s", "")
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tostring, "’ll", "")
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tostring, "’ve", "")
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, tostring, "’re", "")
+  Sys.sleep(0.1)
+  sword2 <- c(stopwords("en"), "end", "but", "not")
+  Sys.sleep(0.1)
+  obama3 <- tm_map(obama3, removeWords, sword2)  # 불용어 제거(전치사, 관사...)
+  Sys.sleep(0.1)
+  obama4 <- TermDocumentMatrix(obama3)
+  Sys.sleep(0.1)
+  m2 <- as.matrix(obama4)
+  Sys.sleep(0.1)
+  obama5 <- sort(rowSums(m2), decreasing = T)
+  Sys.sleep(0.1)
+  #워드클라우드
+  #jpeg('/Users/janghyeonan/r/pie_chart.jpeg') # 설정 후 차트를 그리고 dev.off로 종료
+  wordcloud2(as.table(obama5))
+  #dev.off()
+}
